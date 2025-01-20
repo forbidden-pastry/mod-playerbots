@@ -3097,6 +3097,11 @@ void PlayerbotFactory::InitReagents()
 {
     int level = bot->GetLevel();
     std::vector<std::pair<uint32, uint32>> items;
+
+    if (level >= 60) {
+        items.push_back({DRAKEFIRE_AMULET, 1});
+    }
+
     switch (bot->getClass())
     {
         case CLASS_ROGUE:
