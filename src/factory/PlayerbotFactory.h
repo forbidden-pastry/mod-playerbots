@@ -100,7 +100,6 @@ enum PriorizedConsumables
     CONSUM_ID_DEADLY_POISON_VII = 22054
 };
 
-#ifndef DRAKEFIRE_AMULET
 #define DRAKEFIRE_AMULET 16309
 
 #define MAX_CONSUM_ID 28
