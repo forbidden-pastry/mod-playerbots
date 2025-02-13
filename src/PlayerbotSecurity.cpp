@@ -27,20 +27,30 @@ PlayerbotSecurityLevel PlayerbotSecurity::LevelFor(Player* from, DenyReason* rea
     }
     if (botAI->IsOpposing(from))
     {
-        if (reason)
-            *reason = PLAYERBOT_DENY_OPPOSING;
+	if (sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_GROUP))
+	    return PLAYERBOT_SECURITY_ALLOW_ALL;
+	else
+	{
+            if (reason)
+                *reason = PLAYERBOT_DENY_OPPOSING;
 
-        return PLAYERBOT_SECURITY_DENY_ALL;
+            return PLAYERBOT_SECURITY_DENY_ALL;
+	}
     }
 
     if (sPlayerbotAIConfig->IsInRandomAccountList(account))
     {
         if (botAI->IsOpposing(from))
         {
-            if (reason)
-                *reason = PLAYERBOT_DENY_OPPOSING;
+            if (sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_GROUP))
+                return PLAYERBOT_SECURITY_ALLOW_ALL;
+	    else
+	    {
+	        if (reason)
+                    *reason = PLAYERBOT_DENY_OPPOSING;
 
-            return PLAYERBOT_SECURITY_DENY_ALL;
+                return PLAYERBOT_SECURITY_DENY_ALL;
+	    }
         }
 
         // if (sLFGMgr->GetState(bot->GetGUID()) != lfg::LFG_STATE_NONE)
