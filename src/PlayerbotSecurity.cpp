@@ -149,7 +149,7 @@ PlayerbotSecurityLevel PlayerbotSecurity::LevelFor(Player* from, DenyReason* rea
             return PLAYERBOT_SECURITY_INVITE;
         }
 
-        if (group->IsFull())
+        if (!ignoreGroup && group->IsFull())
         {
             if (reason)
                 *reason = PLAYERBOT_DENY_FULL_GROUP;
@@ -157,7 +157,7 @@ PlayerbotSecurityLevel PlayerbotSecurity::LevelFor(Player* from, DenyReason* rea
             return PLAYERBOT_SECURITY_TALK;
         }
 
-        if (group->GetLeaderGUID() != bot->GetGUID())
+        if (!ignoreGroup && group->GetLeaderGUID() != bot->GetGUID())
         {
             if (reason)
                 *reason = PLAYERBOT_DENY_NOT_LEADER;
