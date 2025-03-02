@@ -124,6 +124,7 @@ public:
     static void InitTalentsByParsedSpecLink(Player* bot, std::vector<std::vector<uint32>> parsedSpecLink, bool reset);
     void InitAvailableSpells();
     void InitClassSpells();
+    void InitSpecialSpells();
     void InitEquipment(bool incremental, bool second_chance = false);
     void InitPet();
     void InitAmmo();
@@ -138,6 +139,9 @@ public:
     void ApplyEnchantAndGemsNew(bool destoryOld = true);
     void InitInstanceQuests();
     void UnbindInstance();
+    void InitKeyring();
+    void InitReputation();
+    void InitAttunementQuests();
 
 private:
     void Prepare();
@@ -151,7 +155,6 @@ private:
     void InitSpells();
     void ClearSpells();
     void ClearSkills();
-    void InitSpecialSpells();
     void InitTalents(uint32 specNo);
     void InitTalentsByTemplate(uint32 specNo);
     void InitQuests(std::list<uint32>& questMap);
