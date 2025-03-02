@@ -696,7 +696,7 @@ void AiFactory::AddDefaultNonCombatStrategies(Player* player, PlayerbotAI* const
                     }
                     else
                     {
-                        // nonCombatEngine->addStrategy("pvp", false);
+                        nonCombatEngine->addStrategy("pvp", true);
                         nonCombatEngine->ChangeStrategy(sPlayerbotAIConfig->nonCombatStrategies);
                     }
                 }
