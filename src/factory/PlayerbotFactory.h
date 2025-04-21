@@ -142,7 +142,8 @@ public:
     void InitKeyring();
     void InitReputation();
     void InitAttunementQuests();
-
+    void InitPotions();
+    
 private:
     void Prepare();
     // void InitSecondEquipmentSet();
@@ -161,7 +162,6 @@ private:
     void ClearInventory();
     void ClearAllItems();
     void ResetQuests();
-    void InitPotions();
 
     std::vector<uint32> GetCurrentGemsCount();
     bool CanEquipArmor(ItemTemplate const* proto);
