@@ -130,8 +130,10 @@ public:
     void InitAmmo();
     static uint32 CalcMixedGearScore(uint32 gs, uint32 quality);
     void InitPetTalents();
-
+    void CleanupConsumables();
     void InitReagents();
+    void InitConsumables();
+    void InitPotions();
     void InitGlyphs(bool increment = false);
     void InitFood();
     void InitMounts();
@@ -142,7 +144,6 @@ public:
     void InitKeyring();
     void InitReputation();
     void InitAttunementQuests();
-    void InitPotions();
     
 private:
     void Prepare();
@@ -179,7 +180,6 @@ private:
     void InitGuild();
     void InitArenaTeam();
     void InitImmersive();
-    void AddConsumables();
     static void AddPrevQuests(uint32 questId, std::list<uint32>& questIds);
     void LoadEnchantContainer();
     void ApplyEnchantTemplate();
