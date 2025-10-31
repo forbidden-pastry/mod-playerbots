@@ -1533,3 +1533,4 @@ UPDATE `ai_playerbot_texts` SET `text_loc3`='%player bewegt sich, um den blauen 
 UPDATE `ai_playerbot_texts` SET `text_loc3`='%player bewegt sich, um den grünen Strahl zu blocken!' WHERE `id`=1714;
 UPDATE `ai_playerbot_texts` SET `text_loc3`='%player verlässt den blauen Strahl--nächster Blocker los!' WHERE `id`=1715;
 UPDATE `ai_playerbot_texts` SET `text_loc3`='%player verlässt den grünen Strahl--nächster Blocker los!' WHERE `id`=1716;
+
