@@ -14,9 +14,11 @@
 #include "PlayerbotOperation.h"
 #include "Player.h"
 #include "PlayerbotAI.h"
+#include "PlayerbotAIConfig.h"
 #include "PlayerbotMgr.h"
 #include "PlayerbotRepository.h"
 #include "RandomPlayerbotMgr.h"
+#include "UseMeetingStoneAction.h"
 #include "WorldSession.h"
 #include "WorldSessionMgr.h"
 
@@ -74,6 +76,15 @@ public:
         if (group->AddMember(target))
         {
             LOG_DEBUG("playerbots", "GroupInviteOperation: Successfully added {} to group", target->GetName());
+            if (sPlayerbotAIConfig.summonWhenGroup && target->GetDistance(bot) > sPlayerbotAIConfig.sightDistance)
+            {
+                PlayerbotAI* targetAI = sPlayerbotsMgr.GetPlayerbotAI(target);
+                if (targetAI)
+                {
+                    SummonAction summonAction(targetAI, "group summon");
+                    summonAction.Teleport(bot, target, true);
+                }
+            }
             return true;
         }
         else
@@ -479,33 +490,23 @@ public:
     bool Execute() override
     {
         // find and verify bot still exists
-        Player* bot = ObjectAccessor::FindConnectedPlayer(this->m_botGuid);
-
+        Player* bot = ObjectAccessor::FindConnectedPlayer(m_botGuid);
         if (!bot)
-        {
             return false;
-        }
 
-        if (this->m_masterAccountId)
+        PlayerbotHolder* holder = &RandomPlayerbotMgr::instance();
+        if (m_masterAccountId)
         {
-            WorldSession* masterSession = sWorldSessionMgr->FindSession(this->m_masterAccountId);
+            WorldSession* masterSession = sWorldSessionMgr->FindSession(m_masterAccountId);
             Player* masterPlayer = masterSession ? masterSession->GetPlayer() : nullptr;
-
-            if (masterPlayer != nullptr)
-            {
-                PlayerbotMgr* manager = PlayerbotsMgr::instance().GetPlayerbotMgr(masterPlayer);
-
-                if (manager == nullptr)
-                {
-                    return false;
-                }
-
-                manager->OnBotLogin(bot);
-            }
+            if (masterPlayer)
+                holder = PlayerbotsMgr::instance().GetPlayerbotMgr(masterPlayer);
         }
 
-        sRandomPlayerbotMgr.OnBotLogin(bot);
+        if (!holder)
+            return false;
 
+        holder->OnBotLogin(bot);
         return true;
     }
 
